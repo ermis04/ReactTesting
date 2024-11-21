@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Container0 from "./myContainer";
+import Container1 from "./myContainer1";
+
+export const ThemeContext = React.createContext<boolean>(true);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [mode, setMode] = useState(true);
+
+    const changeMode = () => setMode((mode) => !mode);
+
+    return (
+        <ThemeContext.Provider value={mode}>
+            <section
+                style={{
+                    backgroundColor: mode ? "white" : "black",
+                }}
+            >
+                <button onClick={changeMode}>
+                    {mode ? "set Dark theme" : "set Light Theme"}
+                </button>
+                <Container0 />
+                <Container1 />
+            </section>
+        </ThemeContext.Provider>
+    );
 }
 
 export default App;
